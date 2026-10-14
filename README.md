@@ -19,3 +19,31 @@ Install uv, then run these commands from the project folder:
 ```powershell
 uv venv --python 3.12 .venv
 uv pip install --python .venv\Scripts\python.exe -r requirements.txt
+```
+
+## Run the image preview
+
+```powershell
+& ".\.venv\Scripts\python.exe" check_image.py
+```
+
+Click the image window and press any key to close it.
+
+## Check the dataset
+
+```powershell
+& ".\.venv\Scripts\python.exe" check_dataset.py
+```
+
+Expected output for the current pilot dataset:
+- 15 photographs per class
+- 90 total
+- 90 readable
+- 0 unreadable
+
+The checker currently counts and reads files ending in .jpeg.
+
+## Troubleshooting
+- Missing script: run commands from the project folder.
+- Missing image: check the image filename and its location under data/raw.
+- Missing library: repeat the dependency installation command above.
