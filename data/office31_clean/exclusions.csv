@@ -1,0 +1,109 @@
+class,frame,reason
+bottle,frame_0001,Accessory rather than a complete bottle
+bottle,frame_0002,Not a bottle according to team review
+bottle,frame_0005,Bottle cap only
+bottle,frame_0006,Bottle cap only
+bottle,frame_0011,Bottle cap only
+bottle,frame_0012,Bottle cap only
+bottle,frame_0014,Carabiner rather than a bottle
+bottle,frame_0020,Not a bottle according to team review
+bottle,frame_0021,Not a bottle according to team review
+bottle,frame_0022,Bottle cap only
+bottle,frame_0025,Multiple bottle caps
+bottle,frame_0032,Multiple drinking containers
+bottle,frame_0033,Multiple bottle caps
+calculator,frame_0060,Not a calculator according to team review
+calculator,frame_0067,Laptop and external numeric keypad
+calculator,frame_0073,Not a calculator according to team review
+keyboard,frame_0002,Keyboard with separate mouse
+keyboard,frame_0006,Keyboard with separate mouse and receiver
+keyboard,frame_0009,Keyboard with separate mouse
+keyboard,frame_0011,Keyboard with separate mouse
+keyboard,frame_0012,Keyboard with separate mouse
+keyboard,frame_0021,Multiple products and packaging
+keyboard,frame_0022,Keyboard with separate mouse
+keyboard,frame_0024,Keyboard with separate mouse
+keyboard,frame_0028,Keyboard with separate mouse
+keyboard,frame_0029,Keyboard with separate mouse
+keyboard,frame_0032,Keyboard with separate mouse
+keyboard,frame_0033,Audio device rather than keyboard
+keyboard,frame_0039,Multiple separate products
+keyboard,frame_0040,Keyboard with separate mouse and receiver
+keyboard,frame_0041,Keyboard with separate mouse
+keyboard,frame_0042,Keyboard with separate mouse
+keyboard,frame_0043,Keyboard with separate mouse
+keyboard,frame_0044,Keyboard with separate mouse
+keyboard,frame_0045,Mouse rather than keyboard
+keyboard,frame_0050,Keyboard with separate mouse
+keyboard,frame_0052,Keyboard with separate mouse and receiver
+keyboard,frame_0055,Keyboard with separate mouse
+keyboard,frame_0056,Not a keyboard according to team review
+keyboard,frame_0057,Exact duplicate of retained frame_0048
+keyboard,frame_0058,Keyboard with other separate products
+keyboard,frame_0059,Whole laptop rather than standalone keyboard
+keyboard,frame_0061,Numeric keypad outside full-keyboard class definition
+keyboard,frame_0064,Not a keyboard according to team review
+keyboard,frame_0065,Keyboard with separate pointing devices
+keyboard,frame_0068,Keyboard with separate mouse
+keyboard,frame_0069,Keyboard with separate mouse
+keyboard,frame_0071,Keyboard with separate mouse and accessories
+keyboard,frame_0075,Keyboard with separate mouse
+keyboard,frame_0076,Numeric keypad outside full-keyboard class definition
+keyboard,frame_0077,Keyboard with separate mouse
+keyboard,frame_0079,Keyboard with separate mouse
+keyboard,frame_0081,Keyboard with separate mouse
+keyboard,frame_0082,Numeric keypad and laptop
+keyboard,frame_0084,Keyboard with separate mouse
+keyboard,frame_0085,Exact duplicate of retained frame_0048
+keyboard,frame_0086,Keyboard with separate mouse
+keyboard,frame_0087,Keyboard with separate mouse
+keyboard,frame_0089,Keyboard with separate mouse
+keyboard,frame_0091,Pen-like device rather than keyboard
+keyboard,frame_0092,Keyboard with separate mouse
+keyboard,frame_0100,Multiple overlapping keyboards
+mouse,frame_0027,Exact duplicate of retained frame_0011
+mouse,frame_0044,3D navigation controller outside ordinary mouse class definition
+mouse,frame_0070,Composite showing multiple views of the device
+mouse,frame_0071,Exact duplicate of retained frame_0020
+mouse,frame_0077,Exact duplicate of retained frame_0048
+mouse,frame_0080,Mouse with substantial keyboard content
+mug,frame_0005,Multiple mugs
+mug,frame_0017,Multiple travel mugs
+mug,frame_0019,Multiple mugs
+mug,frame_0029,Handleless drinking glass outside mug class definition
+mug,frame_0030,Multiple mugs or product views
+mug,frame_0032,Multiple cups
+mug,frame_0034,Multiple mugs and packaging
+mug,frame_0035,Not a mug according to team review
+mug,frame_0046,Not a mug according to team review
+mug,frame_0048,Multiple stacked mugs
+mug,frame_0050,Multiple mugs
+mug,frame_0054,Multiple mugs or product views
+mug,frame_0059,Apparent pouring jug with spout
+mug,frame_0060,Multiple mugs
+mug,frame_0065,Multiple mugs or product views
+mug,frame_0068,Multiple mugs or product views
+mug,frame_0071,Composite showing front and back
+mug,frame_0073,"Exact duplicate of frame_0071, which is also excluded"
+mug,frame_0078,Multiple glass mugs
+mug,frame_0080,Not a mug according to team review
+mug,frame_0081,Multiple mugs
+mug,frame_0085,Multiple glass mugs
+mug,frame_0094,Multiple mugs
+stapler,frame_0010,Not a stapler according to team review
+stapler,frame_0013,Not a stapler according to team review
+stapler,frame_0014,Class could not be verified from available image
+stapler,frame_0015,Staple refill packaging without a stapler
+stapler,frame_0025,Not a stapler according to team review
+stapler,frame_0031,Staples and packaging without a stapler
+stapler,frame_0037,Class could not be verified from available image
+stapler,frame_0055,Multiple staplers
+stapler,frame_0057,Not a stapler according to team review
+stapler,frame_0058,Not a stapler according to team review
+stapler,frame_0059,Multiple staplers
+stapler,frame_0061,Multiple staplers
+stapler,frame_0084,Multiple staplers
+stapler,frame_0088,Not a stapler according to team review
+stapler,frame_0091,Multiple staplers
+stapler,frame_0093,Not a stapler according to team review
+stapler,frame_0095,Multiple staplers

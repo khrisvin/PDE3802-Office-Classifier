@@ -1,0 +1,69 @@
+{
+  "experiment": "office31_baseline",
+  "split": "val",
+  "images": 63,
+  "correct": 62,
+  "mistakes": 1,
+  "accuracy": 0.9841269841269841,
+  "macro_f1": 0.9871604938271604,
+  "classes": [
+    "bottle",
+    "calculator",
+    "keyboard",
+    "mouse",
+    "mug",
+    "stapler"
+  ],
+  "confusion_matrix": [
+    [
+      3,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      14,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      8,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      13,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      12,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      12
+    ]
+  ],
+  "model_sha256": "6f96f6baa59a472927cbd9bd66b4fe3e061faa173e799b42041e9b44f7779064",
+  "split_manifest_sha256": "f0311d69e147d480ca9ea2bcca5da109fff7127f473df6e5259633264c3da300"
+}

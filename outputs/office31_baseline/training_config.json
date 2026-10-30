@@ -1,0 +1,29 @@
+{
+  "seed": 42,
+  "epochs_limit": 30,
+  "batch_size": 8,
+  "learning_rate": 0.001,
+  "image_size": 224,
+  "colour_order": "RGB",
+  "padding": "black, aspect ratio preserved",
+  "input_pixel_range": [
+    0,
+    255
+  ],
+  "model_scaling": "0..255 to -1..1",
+  "backbone": "MobileNetV2",
+  "pretrained_weights": "imagenet",
+  "backbone_trainable": false,
+  "augmentation": false,
+  "class_weights": {
+    "bottle": 2.8529411764705883,
+    "calculator": 0.7698412698412699,
+    "keyboard": 1.2763157894736843,
+    "mouse": 0.7348484848484849,
+    "mug": 0.9897959183673469,
+    "stapler": 0.8362068965517241
+  },
+  "selection_metric": "val_loss",
+  "patience": 5,
+  "split_manifest_sha256": "f0311d69e147d480ca9ea2bcca5da109fff7127f473df6e5259633264c3da300"
+}

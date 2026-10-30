@@ -1,0 +1,300 @@
+OFFICE-31 EXTERNAL IMAGE REVIEW
+Project: PDE3802 Office Classifier
+Review date: 30 October 2026
+
+SOURCE
+Dataset: Office-31
+Domain reviewed: Amazon
+Download: https://zenodo.org/records/14751811
+Original folder: data/external/office31/amazon/images
+Prepared copies: data/office31_reviewed
+
+NEW EXPERIMENT CLASSES
+bottle, calculator, keyboard, mouse, mug, stapler
+
+Calculator replaces book only in the new experiment.
+Preserve the original personal-photo dataset, models and results.
+
+REVIEW RULES
+- Keep clearly identifiable examples of the intended class.
+- Exclude incorrect labels and images outside the class definition.
+- Exclude multiple main objects or composite product views.
+- Small accessories may remain when the main object is clear.
+- Keep one copy from each exact-duplicate group.
+- Keep visually related product groups within the same split.
+- Exclude unresolved class identities and document the uncertainty.
+- Do not delete or rename original images.
+
+Frame numbers below are specific to their named class.
+Example:
+bottle | frame_0002
+refers to:
+bottle/office31_amazon_frame_0002.jpg
+
+
+1. BOTTLE EXCLUSIONS
+
+bottle | frame_0001 | Accessory rather than a complete bottle
+bottle | frame_0002 | Not a bottle according to team review
+bottle | frame_0005 | Bottle cap only
+bottle | frame_0006 | Bottle cap only
+bottle | frame_0011 | Bottle cap only
+bottle | frame_0012 | Bottle cap only
+bottle | frame_0014 | Carabiner rather than a bottle
+bottle | frame_0020 | Not a bottle according to team review
+bottle | frame_0021 | Not a bottle according to team review
+bottle | frame_0022 | Bottle cap only
+bottle | frame_0025 | Multiple bottle caps
+bottle | frame_0032 | Multiple drinking containers
+bottle | frame_0033 | Multiple bottle caps
+
+Original: 36
+Excluded: 13
+Retained: 23
+
+Keep collapsible bottles and clearly identifiable shaker bottles.
+
+
+2. CALCULATOR EXCLUSIONS
+
+calculator | frame_0060 | Not a calculator according to team review
+calculator | frame_0067 | Laptop and external numeric keypad
+calculator | frame_0073 | Not a calculator according to team review
+
+RESOLVED REVIEW
+calculator | frame_0056 | KEEP: labelled Graphing Calculator
+
+Original: 94
+Excluded: 3
+Retained: 91
+
+Keep scientific, graphing, financial and printing calculators.
+
+
+3. KEYBOARD EXCLUSIONS
+
+keyboard | frame_0002 | Keyboard with separate mouse
+keyboard | frame_0006 | Keyboard with separate mouse and receiver
+keyboard | frame_0009 | Keyboard with separate mouse
+keyboard | frame_0011 | Keyboard with separate mouse
+keyboard | frame_0012 | Keyboard with separate mouse
+keyboard | frame_0021 | Multiple products and packaging
+keyboard | frame_0022 | Keyboard with separate mouse
+keyboard | frame_0024 | Keyboard with separate mouse
+keyboard | frame_0028 | Keyboard with separate mouse
+keyboard | frame_0029 | Keyboard with separate mouse
+keyboard | frame_0032 | Keyboard with separate mouse
+keyboard | frame_0033 | Audio device rather than keyboard
+keyboard | frame_0039 | Multiple separate products
+keyboard | frame_0040 | Keyboard with separate mouse and receiver
+keyboard | frame_0041 | Keyboard with separate mouse
+keyboard | frame_0042 | Keyboard with separate mouse
+keyboard | frame_0043 | Keyboard with separate mouse
+keyboard | frame_0044 | Keyboard with separate mouse
+keyboard | frame_0045 | Mouse rather than keyboard
+keyboard | frame_0050 | Keyboard with separate mouse
+keyboard | frame_0052 | Keyboard with separate mouse and receiver
+keyboard | frame_0055 | Keyboard with separate mouse
+keyboard | frame_0056 | Not a keyboard according to team review
+keyboard | frame_0057 | Exact duplicate of retained frame_0048
+keyboard | frame_0058 | Keyboard with other separate products
+keyboard | frame_0059 | Whole laptop rather than standalone keyboard
+keyboard | frame_0061 | Numeric keypad outside full-keyboard class definition
+keyboard | frame_0064 | Not a keyboard according to team review
+keyboard | frame_0065 | Keyboard with separate pointing devices
+keyboard | frame_0068 | Keyboard with separate mouse
+keyboard | frame_0069 | Keyboard with separate mouse
+keyboard | frame_0071 | Keyboard with separate mouse and accessories
+keyboard | frame_0075 | Keyboard with separate mouse
+keyboard | frame_0076 | Numeric keypad outside full-keyboard class definition
+keyboard | frame_0077 | Keyboard with separate mouse
+keyboard | frame_0079 | Keyboard with separate mouse
+keyboard | frame_0081 | Keyboard with separate mouse
+keyboard | frame_0082 | Numeric keypad and laptop
+keyboard | frame_0084 | Keyboard with separate mouse
+keyboard | frame_0085 | Exact duplicate of retained frame_0048
+keyboard | frame_0086 | Keyboard with separate mouse
+keyboard | frame_0087 | Keyboard with separate mouse
+keyboard | frame_0089 | Keyboard with separate mouse
+keyboard | frame_0091 | Pen-like device rather than keyboard
+keyboard | frame_0092 | Keyboard with separate mouse
+keyboard | frame_0100 | Multiple overlapping keyboards
+
+Original: 100
+Excluded: 46
+Retained: 54
+
+Keep ergonomic, gaming and split keyboards.
+frame_0098 is retained: two connected functional sections form one keyboard.
+
+
+4. MOUSE EXCLUSIONS
+
+mouse | frame_0027 | Exact duplicate of retained frame_0011
+mouse | frame_0044 | 3D navigation controller outside ordinary mouse class definition
+mouse | frame_0070 | Composite showing multiple views of the device
+mouse | frame_0071 | Exact duplicate of retained frame_0020
+mouse | frame_0077 | Exact duplicate of retained frame_0048
+mouse | frame_0080 | Mouse with substantial keyboard content
+
+Original: 100
+Excluded: 6
+Retained: 94
+
+Keep ordinary, ergonomic and trackball pointing devices.
+A small USB receiver or cable is an acceptable accessory.
+
+
+5. MUG EXCLUSIONS
+
+mug | frame_0005 | Multiple mugs
+mug | frame_0017 | Multiple travel mugs
+mug | frame_0019 | Multiple mugs
+mug | frame_0029 | Handleless drinking glass outside mug class definition
+mug | frame_0030 | Multiple mugs or product views
+mug | frame_0032 | Multiple cups
+mug | frame_0034 | Multiple mugs and packaging
+mug | frame_0035 | Not a mug according to team review
+mug | frame_0046 | Not a mug according to team review
+mug | frame_0048 | Multiple stacked mugs
+mug | frame_0050 | Multiple mugs
+mug | frame_0054 | Multiple mugs or product views
+mug | frame_0059 | Apparent pouring jug with spout
+mug | frame_0060 | Multiple mugs
+mug | frame_0065 | Multiple mugs or product views
+mug | frame_0068 | Multiple mugs or product views
+mug | frame_0071 | Composite showing front and back
+mug | frame_0073 | Exact duplicate of frame_0071, which is also excluded
+mug | frame_0078 | Multiple glass mugs
+mug | frame_0080 | Not a mug according to team review
+mug | frame_0081 | Multiple mugs
+mug | frame_0085 | Multiple glass mugs
+mug | frame_0094 | Multiple mugs
+
+Original: 94
+Excluded: 23
+Retained: 71
+
+Keep clearly identifiable ceramic, glass, metal and travel mugs.
+A lid, infuser or packaging may remain when one main mug is clear.
+The retained travel tumbler in frame_0002 is included in the travel-mug scope.
+
+
+6. STAPLER EXCLUSIONS
+
+stapler | frame_0010 | Not a stapler according to team review
+stapler | frame_0013 | Not a stapler according to team review
+stapler | frame_0014 | Class could not be verified from available image
+stapler | frame_0015 | Staple refill packaging without a stapler
+stapler | frame_0025 | Not a stapler according to team review
+stapler | frame_0031 | Staples and packaging without a stapler
+stapler | frame_0037 | Class could not be verified from available image
+stapler | frame_0055 | Multiple staplers
+stapler | frame_0057 | Not a stapler according to team review
+stapler | frame_0058 | Not a stapler according to team review
+stapler | frame_0059 | Multiple staplers
+stapler | frame_0061 | Multiple staplers
+stapler | frame_0084 | Multiple staplers
+stapler | frame_0088 | Not a stapler according to team review
+stapler | frame_0091 | Multiple staplers
+stapler | frame_0093 | Not a stapler according to team review
+stapler | frame_0095 | Multiple staplers
+
+Original: 99
+Excluded: 17
+Retained: 82
+
+Keep manual, electric, heavy-duty and novelty staplers.
+frame_0077 is retained: fish-shaped novelty stapler.
+Small accessories may remain when one main stapler is clear.
+Unverified devices are not asserted to be incorrectly labelled.
+
+
+7. CONSERVATIVE VISUAL PRODUCT GROUPS
+
+These are visually inferred product families or near-duplicate candidates.
+They are NOT confirmed physical-object identities.
+Keep every member of each group in the same split.
+These groups may not capture every repeated product.
+Images outside these groups are not proven to be independent objects.
+
+BOTTLE
+bottle_g01 | frame_0003, frame_0009
+bottle_g02 | frame_0010, frame_0023
+bottle_g03 | frame_0004, frame_0016
+bottle_g04 | frame_0027, frame_0028
+
+CALCULATOR
+calculator_g01 | frame_0023, frame_0031, frame_0033, frame_0092
+calculator_g02 | frame_0007, frame_0074
+calculator_g03 | frame_0002, frame_0047, frame_0076, frame_0088
+calculator_g04 | frame_0042, frame_0062, frame_0080
+calculator_g05 | frame_0057, frame_0059
+calculator_g06 | frame_0010, frame_0034, frame_0079
+calculator_g07 | frame_0012, frame_0016
+
+KEYBOARD
+keyboard_g01 | frame_0003, frame_0094
+keyboard_g02 | frame_0013, frame_0023
+keyboard_g03 | frame_0070, frame_0099
+keyboard_g04 | frame_0015, frame_0095
+
+MOUSE
+mouse_g01 | frame_0004, frame_0086, frame_0091
+mouse_g02 | frame_0009, frame_0046
+mouse_g03 | frame_0017, frame_0020, frame_0048, frame_0050, frame_0090
+mouse_g04 | frame_0037, frame_0055
+mouse_g05 | frame_0035, frame_0088
+mouse_g06 | frame_0064, frame_0069, frame_0072, frame_0078
+mouse_g07 | frame_0062, frame_0073
+
+MUG
+mug_g01 | frame_0003, frame_0008, frame_0010, frame_0026
+mug_g02 | frame_0007, frame_0012, frame_0022, frame_0036, frame_0042, frame_0044
+mug_g03 | frame_0013, frame_0023, frame_0031, frame_0062
+mug_g04 | frame_0075, frame_0076
+
+STAPLER
+stapler_g01 | frame_0006, frame_0027, frame_0033, frame_0047
+stapler_g02 | frame_0005, frame_0049, frame_0075
+stapler_g03 | frame_0023, frame_0026, frame_0036, frame_0056, frame_0060, frame_0064, frame_0074
+stapler_g04 | frame_0024, frame_0028
+stapler_g05 | frame_0041, frame_0053, frame_0086
+stapler_g06 | frame_0016, frame_0071
+stapler_g07 | frame_0019, frame_0069, frame_0081
+
+
+8. EXPECTED FINAL COUNTS
+
+Class        Original    Excluded    Retained
+bottle          36          13          23
+calculator      94           3          91
+keyboard       100          46          54
+mouse          100           6          94
+mug             94          23          71
+stapler         99          17          82
+TOTAL          523         108         415
+
+Exclusions include incorrect or unsuitable images,
+unverified labels and redundant exact copies.
+
+The preparation script must verify these counts.
+Saving this review does not remove or copy images.
+
+
+9. LIMITATIONS AND NEXT STEPS
+
+- The dataset is imbalanced, especially the bottle class.
+- Product photographs may differ from real office camera images.
+- Review decisions were made before training the new experiment.
+- Visual grouping reduces overlap risk but cannot guarantee
+  physical-object separation.
+- Do not split related images independently.
+- Apply augmentation only to training images.
+- Choose model changes using validation results.
+- Reserve the new test split for evaluation after model selection.
+- Preserve the original pilot test result of 50% accuracy.
+- The new experiment changes both the dataset and one class;
+  its accuracy is not directly comparable with the original task.
+- Record external provenance and check dataset usage terms
+  before redistributing downloaded images.

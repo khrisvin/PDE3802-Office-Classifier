@@ -1,0 +1,15 @@
+Test accuracy: 96.72%
+Test macro F1: 0.9744
+
+              precision    recall  f1-score   support
+
+      bottle     1.0000    1.0000    1.0000         3
+  calculator     1.0000    1.0000    1.0000        14
+    keyboard     1.0000    1.0000    1.0000         8
+       mouse     1.0000    0.8571    0.9231        14
+         mug     1.0000    1.0000    1.0000        10
+     stapler     0.8571    1.0000    0.9231        12
+
+    accuracy                         0.9672        61
+   macro avg     0.9762    0.9762    0.9744        61
+weighted avg     0.9719    0.9672    0.9672        61

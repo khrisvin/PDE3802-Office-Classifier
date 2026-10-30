@@ -1,0 +1,7 @@
+Seed: 42
+Target ratios: {'train': 0.7, 'val': 0.15, 'test': 0.15}
+Source manifest SHA256: f43867f8b63c202dc403ea6484885d2602b268bacbc0faf2e947db15e88d8abf
+Split unit: recorded visual product group
+Allocation selected using group sizes only.
+Visual groups are not verified physical-object identities.
+Do not use test results to select models or regenerate splits.

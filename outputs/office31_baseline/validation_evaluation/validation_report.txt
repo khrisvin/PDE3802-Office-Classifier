@@ -1,0 +1,15 @@
+Validation accuracy: 98.41%
+Validation macro F1: 0.9872
+
+              precision    recall  f1-score   support
+
+      bottle     1.0000    1.0000    1.0000         3
+  calculator     1.0000    1.0000    1.0000        14
+    keyboard     1.0000    1.0000    1.0000         8
+       mouse     1.0000    0.9286    0.9630        14
+         mug     1.0000    1.0000    1.0000        12
+     stapler     0.9231    1.0000    0.9600        12
+
+    accuracy                         0.9841        63
+   macro avg     0.9872    0.9881    0.9872        63
+weighted avg     0.9853    0.9841    0.9842        63

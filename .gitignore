@@ -3,3 +3,18 @@ __pycache__/
 *.pyc
 .vscode/
 data/split/
+
+# Downloaded Office-31 images and generated image copies
+data/external/
+data/office31_reviewed/
+data/office31_clean/*
+!data/office31_clean/manifest.csv
+!data/office31_clean/exclusions.csv
+!data/office31_clean/review_snapshot.txt
+
+data/office31_split/*
+!data/office31_split/split_manifest.csv
+!data/office31_split/split_details.txt
+
+# Generated thumbnail review sheets
+outputs/office31_review/
