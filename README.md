@@ -1,6 +1,6 @@
 # PDE3802 Office Classifier
 
-Group coursework for Artificial Intelligence in Robotics.
+Group coursework for Artificial Intelligence in Robotics at Middlesex University Mauritius.
 
 ## Team
 
@@ -10,50 +10,36 @@ Group coursework for Artificial Intelligence in Robotics.
 
 ## Project overview
 
-This project classifies one office item in a photograph into one of
-six classes: book, bottle, keyboard, mouse, mug or stapler.
+This project implements single-item image classification using MobileNetV2 pretrained on ImageNet as a frozen feature extractor and a trainable six-class classification layer.
 
-It uses MobileNetV2 pretrained on ImageNet as a frozen feature extractor,
-followed by a trainable six-class classification layer.
+The current Office-31 model recognises:
 
-The wider autonomous robot design is documented separately. This
-implementation does not perform object localisation, navigation or grasping.
+- bottle
+- calculator
+- keyboard
+- mouse
+- mug
+- stapler
 
-## Current status
+The original personal-photo pilot used book instead of calculator. Its dataset, models and results are preserved separately.
 
-- Original dataset collected and checked.
-- Physical-object training, validation and test splits implemented.
-- Image preprocessing implemented.
-- Baseline and augmentation experiments completed.
-- Single-image prediction implemented.
-- Validation and held-out test evaluation completed.
-- Models, metrics, predictions and learning curves saved.
+The implementation predicts a class for an entire image. It does not locate objects, separate multiple items, navigate or control a robot. The wider proposed robot design is a separate coursework component.
 
-The selected baseline achieved 50.00% accuracy and 0.4850 macro F1
-on the held-out test set. This is a pilot prototype with limited
-generalisation, not a reliable deployment-ready classifier.
+## Recorded results
 
-## Dataset
+| Dataset and experiment | Split | Correct / total | Accuracy | Macro F1 |
+|---|---|---:|---:|---:|
+| Personal-photo baseline | Validation | 23/30 | 76.67% | 0.7286 |
+| Personal-photo augmentation | Validation | 22/30 | 73.33% | 0.7063 |
+| Selected personal-photo baseline | Test | 15/30 | 50.00% | 0.4850 |
+| Office-31 baseline | Validation | 62/63 | 98.41% | 0.9872 |
+| Office-31 baseline | Test | 59/61 | 96.72% | 0.9744 |
 
-The dataset contains 90 original photographs across six classes.
+The Office-31 and personal-photo test scores are not directly comparable. They use different images, class sets, split methods and capture conditions.
 
-Each group member photographed one different physical object per class,
-taking five photographs of each object.
+The Office-31 result measures performance on a reviewed subset of Amazon product photographs. It does not establish accuracy on real office scenes.
 
-| Split | Images per class | Total images | Physical objects |
-|---|---:|---:|---:|
-| Training | 5 | 30 | 6 |
-| Validation | 5 | 30 | 6 |
-| Test | 5 | 30 | 6 |
-| Total | 15 | 90 | 18 |
-
-All photographs of the same physical object remain in one split.
-
-Original images are stored in `data/raw/<class>/`.
-The generated split is stored in `data/split/<split>/<class>/`.
-
-See [DATASET_CARD.md](DATASET_CARD.md) for collection details,
-split assignments and limitations.
+Both test sets have now been evaluated and inspected. Neither should be described as untouched in future model development.
 
 ## Setup on Windows
 
@@ -62,344 +48,347 @@ Install Git and uv, then run these commands in PowerShell:
 ```powershell
 git clone https://github.com/khrisvin/PDE3802-Office-Classifier.git
 cd PDE3802-Office-Classifier
+
 uv venv --python 3.12 .venv
 uv pip install --python .\.venv\Scripts\python.exe -r requirements.txt
 ```
 
-If the project is already on your computer, run the environment commands
-from the existing project folder instead of cloning it again.
+For an existing checkout, run the environment commands from its project folder.
 
-The recorded experiments used TensorFlow 2.21.0 on CPU.
-Installed package versions are recorded in `requirements.txt`.
+The commands below use the virtual environment's interpreter directly, so activation is optional.
 
-## Check and prepare the dataset
+The recorded experiments used TensorFlow 2.21.0 on CPU. Package versions are recorded in `requirements.txt`.
 
-Check the original photographs:
+## Restore the Office-31 dataset
 
-```powershell
-& ".\.venv\Scripts\python.exe" check_dataset.py
-```
+Downloaded Office-31 photographs and their generated copies are excluded from Git. The manifests, review decisions and restoration script are included.
 
-Expected result:
+Download `Dataset_Office-31.tar.gz` from the source used for this project:
 
-- 15 images per class.
-- 90 images in total.
-- 90 readable images.
-- Zero unreadable images.
+https://zenodo.org/records/14751811
 
-Create the fixed pilot split:
-
-```powershell
-& ".\.venv\Scripts\python.exe" split_dataset.py
-```
-
-Run this only when `data/split/` does not already exist.
-The script refuses to overwrite an existing split and does not modify
-the original images.
-
-The split directory is excluded from Git and must be generated after
-a fresh clone if evaluation or training is required.
-
-Check the prepared training arrays:
-
-```powershell
-& ".\.venv\Scripts\python.exe" prepare_data.py
-```
-
-Expected output includes:
+Extract the archive and place its folders so that this example path exists:
 
 ```text
-Images shape: (30, 224, 224, 3)
-Labels shape: (30,)
-Pixel data type: uint8
-Label data type: int32
-Colour order: RGB
-First label: 0
+data/external/office31/amazon/images/bottle/frame_0003.jpg
 ```
 
-## Preprocessing and class labels
+The archive also contains DSLR and webcam domains. This experiment uses only Amazon images.
 
-Images are resized proportionally and padded with black pixels to
-224 × 224. OpenCV's BGR channel order is converted to RGB.
-
-The data loader returns uint8 pixel values in the range 0–255.
-A layer inside the model scales these values to −1–1 before MobileNetV2.
-Do not scale the images again before passing them to the saved model.
-
-| Class | Numeric label |
-|---|---:|
-| book | 0 |
-| bottle | 1 |
-| keyboard | 2 |
-| mouse | 3 |
-| mug | 4 |
-| stapler | 5 |
-
-The saved `classes.json` file preserves the output class order.
-
-## Predict one image
-
-The saved baseline model is included, so retraining is not required.
-
-After generating the dataset split, run:
+Run:
 
 ```powershell
-& ".\.venv\Scripts\python.exe" predict_image.py "data\split\val\book\pranay_book01_001.jpeg"
+& ".\.venv\Scripts\python.exe" restore_office31_dataset.py
 ```
 
-The recorded prediction for this example is `book`, with a model score
-of approximately 59.43%. Small numerical differences may occur.
+The script reads the committed manifests and:
 
-To classify another photograph:
+- Verifies the SHA-256 hashes of the 415 required original images.
+- Restores missing clean and split image copies.
+- Verifies existing copies rather than overwriting them.
+- Rejects files whose hashes do not match.
+- Preserves the recorded split assignments and experiment files.
+
+When both destination image collections are missing, the expected output includes:
+
+```text
+Original images verified: 415
+Existing image copies verified: 0
+Missing image copies restored: 830
+```
+
+The 830 copies consist of 415 clean images and the same 415 images distributed across train, validation and test. They are not 830 independent examples.
+
+On a subsequent successful run:
+
+```text
+Original images verified: 415
+Existing image copies verified: 830
+Missing image copies restored: 0
+```
+
+Missing-image restoration was exercised in a separate temporary directory.
+
+Use this restoration script after cloning. The original construction scripts refuse existing destination directories, including directories already containing committed manifests.
+
+## Office-31 dataset composition
+
+The six selected Amazon categories originally contained 523 images. Review and duplicate exclusions removed 108 images, leaving 415.
+
+| Class | Training | Validation | Test | Total |
+|---|---:|---:|---:|---:|
+| bottle | 17 | 3 | 3 | 23 |
+| calculator | 63 | 14 | 14 | 91 |
+| keyboard | 38 | 8 | 8 | 54 |
+| mouse | 66 | 14 | 14 | 94 |
+| mug | 49 | 12 | 10 | 71 |
+| stapler | 58 | 12 | 12 | 82 |
+| Total | 291 | 63 | 61 | 415 |
+
+Recorded visual groups remain within one split. These groups represent visually related products, not verified physical-object identities.
+
+No recorded group crosses splits. This does not prove that every unrecognised near-duplicate or related product has been identified.
+
+See [DATASET_CARD.md](DATASET_CARD.md) for sources, review scope, grouping and limitations.
+
+## Preprocessing and class order
+
+Images are:
+
+1. Read using OpenCV.
+2. Resized proportionally and padded with black pixels to 224 × 224.
+3. Converted from BGR to RGB.
+4. Supplied to the model as pixel values in the range 0–255.
+
+An internal model layer scales pixels to −1–1. Do not apply this scaling a second time.
+
+| Numeric label | Office-31 model | Original pilot model |
+|---|---|---|
+| 0 | bottle | book |
+| 1 | calculator | bottle |
+| 2 | keyboard | keyboard |
+| 3 | mouse | mouse |
+| 4 | mug | mug |
+| 5 | stapler | stapler |
+
+Each experiment's `classes.json` records its output order. The models and class mappings must not be interchanged.
+
+## Predict one image with the Office-31 model
+
+The saved model is included, so retraining is unnecessary.
+
+After restoring the dataset:
 
 ```powershell
-& ".\.venv\Scripts\python.exe" predict_image.py "C:\path\to\photo.jpeg"
+& ".\.venv\Scripts\python.exe" predict_office31.py "data\office31_split\val\bottle\office31_amazon_frame_0013.jpg"
 ```
 
-The program prints the predicted class and all six class scores.
+The recorded result is `bottle`, with a model score of approximately 99.30%.
 
-Use an image containing one clearly visible target item.
-The classifier always selects one of its six classes. It does not
-currently reject unknown objects or locate multiple items separately.
+To classify another image:
 
-A model score is not a guarantee that the prediction is correct.
+```powershell
+& ".\.venv\Scripts\python.exe" predict_office31.py "C:\path\to\photo.jpg"
+```
 
-## Baseline model
+The program prints the predicted class and all six scores.
 
-The baseline consists of:
+Use an image with one clearly visible target item. The classifier always selects one of its six classes; it has no unknown-object rejection mechanism.
 
-- MobileNetV2 pretrained on ImageNet, with its original classifier removed.
-- Frozen MobileNetV2 weights.
+Scores are not calibrated probabilities of correctness. A high score does not guarantee a correct prediction.
+
+A recorded failure can be reproduced with:
+
+```powershell
+& ".\.venv\Scripts\python.exe" predict_office31.py "data\office31_split\val\mouse\office31_amazon_frame_0038.jpg"
+```
+
+This correctly labelled mouse was predicted as `stapler`, with a score of approximately 67.51%. The image was retained.
+
+## Office-31 model and training
+
+Architecture:
+
+- ImageNet-pretrained MobileNetV2 without its original classification head.
+- Frozen backbone, called in inference mode.
 - Global average pooling.
-- A six-class dense layer with softmax activation.
+- Dense layer with six softmax outputs.
 
-Only the final classification layer is trained:
-1,280 × 6 weights plus 6 biases = 7,686 trainable parameters.
-
-Training settings:
+Only the classification layer is trained: 1,280 × 6 weights plus 6 biases, giving 7,686 trainable parameters.
 
 | Setting | Value |
 |---|---|
-| Optimizer | Adam |
+| Optimiser | Adam |
 | Learning rate | 0.001 |
 | Loss | Sparse categorical cross-entropy |
 | Batch size | 8 |
 | Maximum epochs | 30 |
 | Random seed | 42 |
 | Early-stopping monitor | Validation loss |
-| Early-stopping patience | 5 epochs |
-| Restore best weights | Yes |
+| Patience | 5 epochs |
+| Best weights restored | Yes |
+| Augmentation | None |
+| Training class weights | N / (6 × class training count) |
 
-Build and inspect the model:
+Class weights are calculated from the training split only. Training loss is class-weighted; validation loss is unweighted.
 
-```powershell
-& ".\.venv\Scripts\python.exe" model.py
-```
+The recorded run completed 30 epochs. Epoch 30 had the lowest validation loss, approximately 0.0401, with 98.41% validation accuracy.
 
-Train the baseline:
-
-```powershell
-& ".\.venv\Scripts\python.exe" train.py
-```
-
-The first run may download pretrained MobileNetV2 weights.
-
-Outputs are saved in `outputs/pilot/`.
-Running `train.py` again overwrites the baseline model and training history.
-Preserve the recorded artifacts before retraining. Existing evaluation
-files would not automatically update to match a newly trained model.
-
-## Augmentation experiment
-
-The augmentation experiment uses the same original data split and
-training settings, with:
-
-- Random rotations up to ±18 degrees.
-- Small random zooms that preserve image proportions.
-- Augmentation active during training only.
-
-It starts with a fresh classification layer and the pretrained
-MobileNetV2 feature extractor.
+The training command is:
 
 ```powershell
-& ".\.venv\Scripts\python.exe" train_augmented.py
+& ".\.venv\Scripts\python.exe" train_office31.py
 ```
 
-Outputs are saved in `outputs/augmented_v1/`.
+The script refuses to overwrite `outputs/office31_baseline/`. The recorded model already exists, so this command is not required for prediction or dataset restoration.
 
-The script refuses to run when that experiment folder already exists.
-Recorded artifacts are included. Use a separate experiment folder
-if conducting another run.
+For a separate training experiment, use a separate checkout and a new output directory. Preserve the recorded model, configuration and evaluations. Downloading pretrained weights may be necessary for a new training run.
 
-Augmentation produces transformed views of existing training images.
-It does not add new physical objects or increase the original dataset
-count of 90 photographs.
-
-## Validation evaluation and model selection
-
-```powershell
-& ".\.venv\Scripts\python.exe" evaluate_validation.py
-& ".\.venv\Scripts\python.exe" evaluate_augmented.py
-```
-
-These scripts load saved models without retraining and evaluate the
-unchanged validation set.
-
-| Experiment | Selected epoch | Validation accuracy | Macro F1 | Errors |
-|---|---:|---:|---:|---:|
-| Baseline | 30 | 76.67% | 0.7286 | 7/30 |
-| Rotation and zoom augmentation | 23 | 73.33% | 0.7063 | 8/30 |
-
-The augmentation run completed 28 epochs and restored epoch 23,
-which had its lowest validation loss.
-
-The baseline was selected before test evaluation because it achieved
-higher validation accuracy and macro F1.
-
-These results show that the tested augmentation settings did not
-improve this experiment. They do not establish that augmentation
-is generally ineffective.
-
-Both models classified all five validation stapler photographs as mouse.
+A fixed seed does not guarantee bit-identical training across platforms and library versions.
 
 ## Learning curves
 
-Generate graphs from the saved training histories:
+Generate the Office-31 chart from its saved history:
+
+```powershell
+& ".\.venv\Scripts\python.exe" plot_office31_learning_curves.py
+```
+
+Output:
+
+```text
+outputs/office31_baseline/learning_curves.png
+```
+
+This does not retrain the model.
+
+Training accuracy reached 100% at epoch 6. Validation accuracy finished at 98.41%, while validation loss continued decreasing.
+
+Training and validation loss magnitudes are not directly comparable because only training loss uses class weights.
+
+![Office-31 learning curves](outputs/office31_baseline/learning_curves.png)
+
+## Office-31 evaluation
+
+Evaluation scripts load the saved model without retraining:
+
+```powershell
+& ".\.venv\Scripts\python.exe" evaluate_office31_validation.py
+& ".\.venv\Scripts\python.exe" evaluate_office31_test.py
+```
+
+The result directories already contain the recorded evaluations. These scripts refuse to overwrite existing result directories.
+
+For independent reproduction, use a separate checkout, preserve the existing results in a backup location outside their original directories, and run evaluation using the unchanged model and restored split.
+
+The test script checks that the saved model and split-manifest fingerprints match the validation record.
+
+Each evaluation produces metrics, a classification report, per-image predictions and a confusion matrix.
+
+### Validation
+
+- Images: 63.
+- Correct: 62.
+- Accuracy: 98.41%.
+- Macro F1: 0.9872.
+- Error: mouse `frame_0038` predicted as stapler.
+
+### Test
+
+| Class | Correct / total | Precision | Recall | F1 |
+|---|---:|---:|---:|---:|
+| bottle | 3/3 | 1.0000 | 1.0000 | 1.0000 |
+| calculator | 14/14 | 1.0000 | 1.0000 | 1.0000 |
+| keyboard | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+| mouse | 12/14 | 1.0000 | 0.8571 | 0.9231 |
+| mug | 10/10 | 1.0000 | 1.0000 | 1.0000 |
+| stapler | 12/12 | 0.8571 | 1.0000 | 0.9231 |
+
+Overall accuracy: 96.72% (59/61). Macro F1: 0.9744.
+
+Both test mistakes were mouse images predicted as stapler:
+
+- `test/mouse/office31_amazon_frame_0036.jpg`
+- `test/mouse/office31_amazon_frame_0079.jpg`
+
+The model was not retrained or modified during this evaluation. Error causes have not been verified experimentally.
+
+See [ERROR_ANALYSIS.md](ERROR_ANALYSIS.md).
+
+## Original personal-photo pilot
+
+The original dataset contains 90 personally captured images of 18 physical objects across six classes: book, bottle, keyboard, mouse, mug and stapler.
+
+Each contributor photographed one distinct object per class from five views. All views of an object stay in one split.
+
+Each split contains 30 images: five images of one physical object per class.
+
+Original images are in `data/raw/`. To prepare the pilot after cloning:
+
+```powershell
+& ".\.venv\Scripts\python.exe" check_dataset.py
+& ".\.venv\Scripts\python.exe" split_dataset.py
+& ".\.venv\Scripts\python.exe" prepare_data.py
+```
+
+Run `split_dataset.py` only when `data/split/` does not already exist.
+
+The baseline and rotation/zoom experiments are preserved in:
+
+- `outputs/pilot/`
+- `outputs/augmented_v1/`
+
+The augmented run completed 28 epochs and selected epoch 23 by validation loss. Its validation accuracy was 73.33%, compared with 76.67% for the baseline. The baseline was selected before test evaluation.
+
+The selected baseline achieved 50.00% test accuracy and 0.4850 macro F1. All five test stapler images were predicted as mouse.
+
+These results demonstrate limited generalisation in the pilot. The tested augmentation settings did not improve the recorded validation run.
+
+To use the original model:
+
+```powershell
+& ".\.venv\Scripts\python.exe" predict_image.py "data\split\val\book\pranay_book01_001.jpeg"
+```
+
+To plot its saved histories:
 
 ```powershell
 & ".\.venv\Scripts\python.exe" plot_learning_curves.py
 ```
 
-This does not retrain the models.
+Historical training scripts are `train.py` and `train_augmented.py`. The original `train.py` can overwrite pilot artifacts; do not rerun it over the recorded experiment.
 
-Each experiment folder contains `learning_curves.png`.
-The dashed line marks the epoch with the lowest validation loss.
-
-Training accuracy in the augmented experiment is measured on transformed
-images. Validation accuracy is measured on unchanged images.
-
-## Held-out test evaluation
-
-The selected baseline was evaluated on the test set after model selection.
-
-| Metric | Result |
-|---|---:|
-| Test images | 30 |
-| Correct predictions | 15 |
-| Incorrect predictions | 15 |
-| Accuracy | 50.00% |
-| Macro F1 | 0.4850 |
-
-| Class | Correct / total | Precision | Recall | F1 |
-|---|---:|---:|---:|---:|
-| book | 1/5 | 1.0000 | 0.2000 | 0.3333 |
-| bottle | 2/5 | 0.6667 | 0.4000 | 0.5000 |
-| keyboard | 5/5 | 1.0000 | 1.0000 | 1.0000 |
-| mouse | 2/5 | 0.2500 | 0.4000 | 0.3077 |
-| mug | 5/5 | 0.6250 | 1.0000 | 0.7692 |
-| stapler | 0/5 | 0.0000 | 0.0000 | 0.0000 |
-
-Recorded test artifacts are in `outputs/pilot/test_evaluation/`:
-
-- `test_metrics.json`
-- `test_report.txt`
-- `test_predictions.csv`
-- `test_confusion_matrix.png`
-
-The metrics include the evaluated model's SHA-256 fingerprint.
-
-The evaluation command is:
-
-```powershell
-& ".\.venv\Scripts\python.exe" evaluate_test.py
-```
-
-The script refuses to overwrite an existing test-results folder.
-The recorded results are already included in the repository.
-
-To independently reproduce the evaluation, first preserve the existing
-results outside that folder and use the unchanged saved baseline model
-and fixed split. Reproduction must not be confused with tuning against
-test results.
-
-## Error analysis
-
-Accuracy fell from 76.67% on validation to 50.00% on test.
-
-The test errors were:
-
-- Four book photos predicted as mouse, bottle or stapler.
-- Three bottle photos predicted as mug.
-- Three mouse photos predicted as stapler.
-- All five stapler photos predicted as mouse.
-
-Keyboard and mug each achieved five correct predictions, but each
-class's five test images depict only one physical object.
-
-The results indicate limited generalisation in this pilot.
-Limited object diversity and differences in background, lighting,
-framing or object appearance are possible contributors. Their
-individual effects have not been isolated experimentally.
-
-## Limitations and future work
-
-- Only one physical object per class is available for training.
-- Views of the same object are correlated observations.
-- The evaluation covers few distinct objects.
-- Unknown objects are forced into one of the six classes.
-- Image classification alone cannot determine object position or grasp safety.
-- The prototype has no implemented robot control or safety system.
-
-Future work should collect more distinct physical objects and reserve
-a fresh independent test set before further model development.
-
-The existing test set has now been inspected. It must not be described
-as untouched in subsequent development experiments.
-
-## Main files
+## Main Office-31 files
 
 | File | Purpose |
 |---|---|
-| `check_image.py` | Preview and inspect an example image |
-| `check_dataset.py` | Count and check original images |
-| `split_dataset.py` | Reproduce the fixed physical-object split |
-| `dataset.py` | Collect image paths and labels |
-| `preprocessing.py` | Resize and pad images |
-| `prepare_data.py` | Load RGB image arrays and numeric labels |
-| `model.py` | Build the baseline model |
-| `train.py` | Train the baseline |
-| `train_augmented.py` | Train the augmentation experiment |
-| `evaluate_validation.py` | Evaluate baseline validation performance |
-| `evaluate_augmented.py` | Evaluate augmented validation performance |
-| `evaluate_test.py` | Evaluate the selected baseline on test data |
-| `predict_image.py` | Classify one image file |
-| `plot_learning_curves.py` | Plot saved training histories |
-| `DATASET_CARD.md` | Document the dataset and its limitations |
+| `prepare_office31.py` | Initial extraction review and duplicate reporting |
+| `make_review_sheets.py` | Generate thumbnail sheets for visual review |
+| `external_image_review.txt` | Record exclusions and visual groups |
+| `exact_duplicate_exclusions.txt` | Record initial redundant image exclusions |
+| `build_clean_dataset.py` | Construct the reviewed clean dataset |
+| `split_office31.py` | Create the original recorded grouped split |
+| `restore_office31_dataset.py` | Restore images from committed manifests |
+| `train_office31.py` | Train the Office-31 baseline |
+| `evaluate_office31_validation.py` | Evaluate validation images |
+| `evaluate_office31_test.py` | Evaluate the fixed model on test images |
+| `predict_office31.py` | Predict one image |
+| `plot_office31_learning_curves.py` | Plot saved training history |
+| `DATASET_CARD.md` | Document both datasets |
+| `ERROR_ANALYSIS.md` | Document Office-31 errors and limitations |
+
+The construction scripts document dataset development. Restoration is the normal setup route for the recorded dataset.
+
+## Limitations
+
+- Office-31 images are mainly product photographs, unlike cluttered office scenes.
+- Visual groups are not verified physical-object identities.
+- Undetected near-duplicates or related products may remain.
+- Cleaning excluded some ambiguous and multi-item photographs, narrowing the evaluation scope.
+- Classes are imbalanced; only three bottles are present in each evaluation split.
+- There is no unknown-object rejection or score calibration.
+- Classification does not establish localisation, navigation or grasping performance.
+- Neither dataset demonstrates safe autonomous robot operation.
+- Test results have been inspected and must not become targets for further tuning.
+
+Future development should use broader capture conditions and reserve a fresh independent test set before making further model choices.
 
 ## Troubleshooting
 
 - Missing package: install `requirements.txt` using the project interpreter.
-- Missing image: check the path, filename and extension.
-- Missing split: run `split_dataset.py` once.
-- Existing split: reuse it instead of rerunning the split script.
-- Missing model: check `outputs/pilot/office_classifier.keras`.
-- Existing experiment folder: preserve its contents and use a new folder
-  for a new experiment.
-- Existing test-results folder: review the saved results; the script
-  intentionally prevents overwriting.
-- oneDNN or CPU information messages alone do not indicate failure.
-- The recorded setup uses CPU execution on native Windows.
-- An optimizer-state loading warning may appear for the augmented model.
-  Prediction completed in the recorded evaluation; this does not verify
-  that its saved optimizer state is suitable for resuming training.
+- Missing Office-31 images: check the extracted archive path and run `restore_office31_dataset.py`.
+- Hash mismatch: check the original archive and affected file; do not change the recorded hash just to bypass the check.
+- Missing pilot split: run `split_dataset.py` once.
+- Missing Office-31 model: check `outputs/office31_baseline/office_classifier.keras`.
+- Existing experiment or evaluation directory: inspect its saved results and preserve them before conducting a separate run.
+- A wrong prediction is a model error, not automatically a script failure.
+- Informational oneDNN and CPU messages alone do not indicate failure.
+- The recorded experiments ran successfully on CPU.
 
 ## References
 
-- TensorFlow transfer learning:
-  https://www.tensorflow.org/tutorials/images/transfer_learning
-- Keras MobileNet models:
-  https://keras.io/api/applications/mobilenet/
-- OpenCV documentation:
-  https://docs.opencv.org/
-- Scikit-learn classification metrics:
-  https://scikit-learn.org/stable/modules/model_evaluation.html
+- Dataset download used: https://zenodo.org/records/14751811
+- TensorFlow transfer learning: https://www.tensorflow.org/tutorials/images/transfer_learning
+- Keras MobileNet models: https://keras.io/api/applications/mobilenet/
+- OpenCV documentation: https://docs.opencv.org/
+- Scikit-learn model evaluation: https://scikit-learn.org/stable/modules/model_evaluation.html
