@@ -8,7 +8,7 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
-from train_office31 import CLASSES, resize_and_pad
+from office31_data import CLASSES, resize_and_pad
 
 
 ROOT = Path(__file__).resolve().parent

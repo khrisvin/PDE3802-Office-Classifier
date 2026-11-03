@@ -537,7 +537,7 @@ train.py
 train_augmented.py
 ```
 
-The original `train.py` can overwrite pilot artifacts. Do not rerun it over the recorded experiment.
+The pilot `train.py` now refuses an existing experiment folder. Pilot validation scripts also refuse existing evaluation artifacts. Preserve historical results when preparing any separate run.
 
 ## Main Office-31 files
 
@@ -551,6 +551,7 @@ The original `train.py` can overwrite pilot artifacts. Do not rerun it over the 
 | `build_clean_dataset.py` | Construct the reviewed clean dataset |
 | `split_office31.py` | Create the original recorded grouped split |
 | `restore_office31_dataset.py` | Restore images from committed manifests |
+| `office31_data.py` | Shared Office-31 classes, preprocessing and manifest/image loading |
 | `train_office31.py` | Train the Office-31 baseline |
 | `evaluate_office31_validation.py` | Evaluate validation images |
 | `evaluate_office31_test.py` | Evaluate the fixed model on test images |
@@ -567,7 +568,9 @@ The construction scripts document dataset development. Restoration is the normal
 
 Dataset restoration was tested in a separate temporary directory on the development computer.
 
-Independent installation testing on Pranay's computer is pending. No successful fresh installation on his computer is claimed yet.
+Pranay Poheith reported successful independent installation and selected prediction checks on 2 November 2026 using commit `9aeaaf8`. The transcript confirms cloning, required-file checks and prediction exit codes. Supporting screenshots for restoration summaries and prediction outputs are pending review.
+
+That test predates the source cleanup. The revised prediction workflow needs a follow-up check before this revision is described as independently tested.
 
 ### Test procedure
 

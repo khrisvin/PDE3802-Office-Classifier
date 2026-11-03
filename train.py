@@ -11,7 +11,12 @@ from prepare_data import load_images
 def main():
     project_folder = Path(__file__).resolve().parent
     output_folder = project_folder / "outputs" / "pilot"
-    output_folder.mkdir(parents=True, exist_ok=True)
+    if output_folder.exists():
+        raise FileExistsError(
+            f"Experiment already exists: {output_folder}\n"
+            "Preserve it; use a different output folder for a new run."
+        )
+    output_folder.mkdir(parents=True, exist_ok=False)
 
     train_images, train_labels = load_images("train")
     val_images, val_labels = load_images("val")

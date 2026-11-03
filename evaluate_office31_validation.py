@@ -19,7 +19,7 @@ from sklearn.metrics import (
     f1_score,
 )
 
-from train_office31 import (
+from office31_data import (
     CLASSES,
     MANIFEST,
     load_split,

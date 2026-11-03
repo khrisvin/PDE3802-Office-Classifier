@@ -20,6 +20,17 @@ from prepare_data import load_images
 def main():
     project_folder = Path(__file__).resolve().parent
     output_folder = project_folder / "outputs" / "pilot"
+    # Preserve every existing evaluation artifact, including partial runs.
+    result_names = (
+        "validation_metrics.json", "validation_report.txt",
+        "validation_predictions.csv", "validation_confusion_matrix.png",
+    )
+    if any((output_folder / name).exists() for name in result_names):
+        raise FileExistsError(
+            f"Validation results already exist in: {output_folder}\n"
+            "Back up existing results outside this directory before rerunning."
+        )
+
     model_path = output_folder / "office_classifier.keras"
 
     if not model_path.is_file():
